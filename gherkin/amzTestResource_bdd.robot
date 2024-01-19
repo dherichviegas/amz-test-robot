@@ -12,7 +12,7 @@ ${PESQUISA}                     //input[contains(@type,'text')]
 ${CLICK_PESQUISAR}              //input[contains(@type,'submit')]
 ${RESULTADO_PESQUISA}           //span[@class='a-size-medium-plus a-color-base a-text-bold'][contains(.,'Resultados')]
 ${SELECIONAR_ITEM}              //span[@class='a-size-base-plus a-color-base a-text-normal'][contains(.,'Console Xbox Series S')]
-${ADC_CARRINHO}                 //input[contains(@name,'submit.add-to-cart')]
+${ADC_CARRINHO}                 //input[contains(@title,'Adicionar ao carrinho')]
 ${VER_CARRINHO}                 //a[contains(.,'Ir para o carrinho')]
 ${EXCLUIR_ITEM}                 //input[@aria-label='Excluir Console Xbox Series S']
 ${ITEM_EXCLUIDO}                //h1[@class='a-spacing-mini a-spacing-top-base'][contains(.,'Seu carrinho de compras da Amazon está vazio.')]
@@ -54,6 +54,28 @@ Então o título da página deve ficar "Amazon.com.br : Xbox Series S"
     Wait Until Element Is Visible    locator=${RESULTADO_PESQUISA}
 
 E um produto da linha "Xbox Series S" deve ser mostrado na página
-   Click Element    locator=${SELECIONAR_ITEM}
+    Click Element    locator=${SELECIONAR_ITEM}
 
+Então adicionar o produto "Console Xbox Series S" no carrinho
+    Click Element    locator=${ADC_CARRINHO}
 
+E o produto "Console Xbox Series S" deve ser mostrado no carrinho
+    Wait Until Element Is Visible    locator=${VER_CARRINHO}
+
+Então um produto da linha "Xbox Series S" deve ser mostrado na página
+    Click Element    locator=${SELECIONAR_ITEM}
+
+E adicionar o produto "Console Xbox Series S" no carrinho
+    Click Element    locator=${ADC_CARRINHO}
+
+E existe o produto "Console Xbox Series S" no carrinho
+    Click Element    locator=${VER_CARRINHO}
+
+Quando remover o produto "Console Xbox Series S" do carrinho
+    Click Element    locator=${EXCLUIR_ITEM}
+
+E deve ser mostrado no carrinho
+    Click Element    locator=${VER_CARRINHO}
+
+E o carrinho deve ficar vazio
+    Click Element    locator=${EXCLUIR_ITEM}
